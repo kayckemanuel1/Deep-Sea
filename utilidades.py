@@ -129,25 +129,25 @@ def exibir_informacoes(cores: dict, submarino: str, deep_sea: str, assets_jogo: 
 
 def cadastrar_jogadores(cores: dict, assets_jogo: dict, submarino: str, deep_sea: str):
     
-    num_de_jogadores = input(f'{cores["amarelo"]}Insira a quantidade de jogadores (Mínimo de 4 e máximo de 6.): {cores["reset_cor"]}')
-    limpar_tela()
-    if num_de_jogadores.isdigit():
-        num_de_jogadores = int(num_de_jogadores)
-    match num_de_jogadores:
-        case 4 | 5 | 6:
-            None
-        case _:
-            exibir_cabecalho(cores, submarino, deep_sea)
-            cadastrar_jogadores(cores, assets_jogo, submarino, deep_sea)
-    
-    num_de_jogadores = int(num_de_jogadores)      
+    while True:
+        limpar_tela()
+        exibir_cabecalho(cores, submarino, deep_sea)
+        num_de_jogadores = input(f'{cores["amarelo"]}Insira a quantidade de jogadores (Mínimo de 4 e máximo de 6.): {cores["reset_cor"]}')
+        
+        if num_de_jogadores.isdigit():
+            num_de_jogadores = int(num_de_jogadores)
+            
+            if num_de_jogadores in {4, 5, 6}:
+                limpar_tela()
+                break
+
     exibir_cabecalho(cores, submarino, deep_sea)
     assets_jogo.update({
-    "num_de_jogadores": num_de_jogadores,
-    "voltar_ao_submarino": ['N'] * num_de_jogadores,  # Indice com a flag de cada jogador, que indica se ele está voltando ao submarino ou mergulhando
-    "tesouros_com_o_jogador": [0] * num_de_jogadores,
-    "posicoes": [0] * num_de_jogadores, 
-    "submarino_tesouros": [0] * num_de_jogadores
+        "num_de_jogadores": num_de_jogadores,
+        "voltar_ao_submarino": ['N'] * num_de_jogadores,
+        "tesouros_com_o_jogador": [0] * num_de_jogadores,
+        "posicoes": [0] * num_de_jogadores,
+        "submarino_tesouros": [0] * num_de_jogadores
     })
     assets_jogo["nomes_jogadores"] = obter_nomes_jogadores(assets_jogo, cores)
 
